@@ -59,7 +59,9 @@ flutter:
 
 
   assets:
-    - assets/logo.png
+    - assets/logo_usedev.png
+    - assets/hero_cta.png
+    - assets/banner_cta.png
 
 
 
