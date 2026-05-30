@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:meu_app/src/models/product_model.dart';
 import 'package:meu_app/src/services/cart_service.dart';
 import 'package:meu_app/src/screens/cart_screen.dart';
-import 'package:meu_app/src/widgets/custom_app_bar_widget.dart';
 import 'package:meu_app/src/widgets/cart_icon_widget.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -25,8 +24,6 @@ class ProductDetailScreen extends StatelessWidget {
           const SizedBox(width: 10),
         ],
       ),
-
-      // Ícone do carrinho separado para não “poluir” o widget global
       floatingActionButton: ListenableBuilder(
         listenable: cartService,
         builder: (context, child) {

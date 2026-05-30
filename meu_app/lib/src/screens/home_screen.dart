@@ -3,9 +3,7 @@ import 'package:meu_app/src/models/product_model.dart';
 import 'package:meu_app/src/widgets/hero_section_widget.dart';
 import 'package:meu_app/src/widgets/product_card_widget.dart';
 import 'package:meu_app/src/widgets/subscription_section_widget.dart';
-import 'package:meu_app/src/screens/cart_screen.dart';
 import 'package:meu_app/src/services/cart_service.dart';
-import 'package:meu_app/src/screens/login_screen.dart';
 import 'package:meu_app/src/widgets/cart_icon_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 2, 138, 9),
 
-        automaticallyImplyLeading: false, // ❌ remove as 3 barras
+        automaticallyImplyLeading: false,
 
         leading: IconButton(
           icon: const Icon(Icons.person_outline, color: Colors.white, size: 30),
