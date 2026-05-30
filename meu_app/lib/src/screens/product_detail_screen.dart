@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meu_app/src/models/product_model.dart';
 import 'package:meu_app/src/services/cart_service.dart';
+import 'package:meu_app/src/screens/cart_screen.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final ProductModel produto;
@@ -18,6 +19,60 @@ class ProductDetailScreen extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 2, 138, 9),
 
         title: Text(produto.nome, style: TextStyle(color: Colors.white)),
+
+        actions: [
+          ListenableBuilder(
+            listenable: cartService,
+
+            builder: (context, child) {
+              return Stack(
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 35,
+                      color: Colors.white,
+                    ),
+
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+
+                        MaterialPageRoute(builder: (_) => CartScreen()),
+                      );
+                    },
+                  ),
+
+                  Positioned(
+                    right: 0,
+                    top: 0,
+
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+
+                      child: Text(
+                        '${cartService.quantidadeItens}',
+
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+
+          SizedBox(width: 15),
+        ],
       ),
 
       body: SingleChildScrollView(

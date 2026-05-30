@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meu_app/src/services/cart_service.dart';
+import 'package:meu_app/src/services/auth_service.dart';
+import 'package:meu_app/src/screens/login_screen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -134,27 +136,103 @@ class CartScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(20),
 
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+                child: Column(
                   children: [
-                    Text(
-                      'Total:',
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      children: [
+                        Text(
+                          'Total:',
+
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        Text(
+                          'R\$ ${cartService.valorTotal.toStringAsFixed(2)}',
+
+                          style: TextStyle(
+                            color: Colors.greenAccent,
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
 
-                    Text(
-                      'R\$ ${cartService.valorTotal.toStringAsFixed(2)}',
+                    SizedBox(height: 25),
 
-                      style: TextStyle(
-                        color: Colors.greenAccent,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: double.infinity,
+
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+
+                          padding: EdgeInsets.symmetric(vertical: 18),
+                        ),
+
+                        onPressed: () async {
+                          final AuthService authService = AuthService();
+
+                          final logado = await authService.estaLogado();
+
+                          if (!logado) {
+                            await showDialog(
+                              context: context,
+
+                              builder: (_) {
+                                return AlertDialog(
+                                  title: Text('Login necessário'),
+
+                                  content: Text(
+                                    'Você precisa estar logado para finalizar a compra.',
+                                  ),
+
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+
+                                        Navigator.push(
+                                          context,
+
+                                          MaterialPageRoute(
+                                            builder: (_) => LoginScreen(),
+                                          ),
+                                        );
+                                      },
+
+                                      child: Text('Fazer Login'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+
+                            return;
+                          }
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Compra finalizada com sucesso!'),
+                            ),
+                          );
+                        },
+
+                        child: Text(
+                          'Finalizar Compra',
+
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   ],

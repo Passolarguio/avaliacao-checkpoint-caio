@@ -5,6 +5,7 @@ import 'package:meu_app/src/widgets/product_card_widget.dart';
 import 'package:meu_app/src/widgets/subscription_section_widget.dart';
 import 'package:meu_app/src/screens/cart_screen.dart';
 import 'package:meu_app/src/services/cart_service.dart';
+import 'package:meu_app/src/screens/login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,7 +49,17 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Color.fromARGB(255, 37, 37, 37),
 
       appBar: AppBar(
-        leading: Icon(Icons.menu, size: 40, color: Colors.white),
+        leading: IconButton(
+          icon: Icon(Icons.person_outline, size: 40, color: Colors.white),
+
+          onPressed: () {
+            Navigator.push(
+              context,
+
+              MaterialPageRoute(builder: (_) => LoginScreen()),
+            );
+          },
+        ),
         backgroundColor: Color.fromARGB(255, 2, 138, 9),
         title: Image.asset('assets/logo_d20.png', height: 40),
         centerTitle: true,
