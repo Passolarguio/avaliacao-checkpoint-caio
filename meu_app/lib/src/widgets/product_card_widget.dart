@@ -1,38 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:meu_app/src/models/product_model.dart';
 
 class ProductCardWidget extends StatelessWidget {
-  const ProductCardWidget({
-    required this.nome,
-    required this.url,
-    required this.preco,
-    super.key,
-  });
+  const ProductCardWidget({required this.produto, super.key});
 
-  final String nome;
-  final String url;
-  final String preco;
+  final ProductModel produto;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: .all(20),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+      color: Colors.black,
+      margin: EdgeInsets.all(20),
+
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+
       elevation: 5,
+
       child: Column(
-        crossAxisAlignment: .stretch,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+
         children: [
-          Image.network(url, height: 200, width: double.infinity, fit: .cover),
-          Padding(
-            padding: .symmetric(horizontal: 15, vertical: 10),
-            child: Text(
-              nome,
-              style: TextStyle(fontSize: 25, fontWeight: .bold),
+          ClipRRect(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+
+            child: Image.network(
+              produto.imagem,
+              height: 220,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
           ),
+
           Padding(
-            padding: .symmetric(horizontal: 15, vertical: 10),
-            child: Text(preco, style: TextStyle(fontSize: 31)),
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+
+            child: Text(
+              produto.nome,
+
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+
+            child: Text(
+              'R\$ ${produto.preco}',
+
+              style: TextStyle(
+                color: Colors.greenAccent,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          SizedBox(height: 20),
         ],
       ),
     );

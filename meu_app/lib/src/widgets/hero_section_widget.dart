@@ -8,7 +8,7 @@ class HeroSectionWidget extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/banner_cta.png'),
+          image: AssetImage('assets/store_bg.png'),
           fit: .cover,
         ),
       ),
@@ -18,23 +18,9 @@ class HeroSectionWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(20),
-            child: Image.asset('assets/hero_cta.png', width: 300),
+            child: Image.asset('assets/home_scroll.png', width: 500),
           ),
-          Text.rich(
-            textAlign: .center,
-            style: TextStyle(fontSize: 50, fontWeight: .bold),
-            TextSpan(
-              text: 'Hora de abraçar seu ',
-              style: TextStyle(color: Color(0xFFFF55DF)),
-              children: [
-                TextSpan(
-                  text: 'lado geek',
-                  style: TextStyle(color: Color(0xFF8FFF24)),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 25),
+          SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
