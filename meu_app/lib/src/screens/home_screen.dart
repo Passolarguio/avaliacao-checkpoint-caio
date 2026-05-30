@@ -3,6 +3,8 @@ import 'package:meu_app/src/models/product_model.dart';
 import 'package:meu_app/src/widgets/hero_section_widget.dart';
 import 'package:meu_app/src/widgets/product_card_widget.dart';
 import 'package:meu_app/src/widgets/subscription_section_widget.dart';
+import 'package:meu_app/src/screens/cart_screen.dart';
+import 'package:meu_app/src/services/cart_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final CartService cartService = CartService();
+
   final List<ProductModel> produtos = [
     ProductModel(
       nome: 'Conjunto de Dados DND Marrom de Acrílico',
@@ -50,9 +54,56 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
 
         actions: [
-          Icon(Icons.person_outline, size: 40),
+          Icon(Icons.person_outline, size: 40, color: Colors.white),
           SizedBox(width: 10),
-          Icon(Icons.shopping_cart_outlined, size: 40),
+          ListenableBuilder(
+            listenable: cartService,
+
+            builder: (context, child) {
+              return Stack(
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 40,
+                      color: Colors.white,
+                    ),
+
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => CartScreen()),
+                      );
+                    },
+                  ),
+
+                  Positioned(
+                    right: 0,
+                    top: 0,
+
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 181, 0, 236),
+                        shape: BoxShape.circle,
+                      ),
+
+                      child: Text(
+                        '${cartService.quantidadeItens}',
+
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
           SizedBox(width: 25),
         ],
       ),
