@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meu_app/src/services/auth_service.dart';
+import 'package:meu_app/src/widgets/custom_app_bar_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -122,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 37, 37, 37),
 
-      appBar: AppBar(backgroundColor: Color.fromARGB(255, 2, 138, 9)),
+      appBar: CustomAppBarWidget(titulo: 'Login'),
 
       body: Center(
         child: Padding(

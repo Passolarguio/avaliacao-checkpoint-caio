@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meu_app/src/services/cart_service.dart';
 import 'package:meu_app/src/services/auth_service.dart';
 import 'package:meu_app/src/screens/login_screen.dart';
+import 'package:meu_app/src/widgets/custom_app_bar_widget.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -13,11 +14,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 37, 37, 37),
 
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 2, 138, 9),
-
-        title: Text('Carrinho', style: TextStyle(color: Colors.white)),
-      ),
+      appBar: CustomAppBarWidget(titulo: 'Carrinho'),
 
       body: ListenableBuilder(
         listenable: cartService,

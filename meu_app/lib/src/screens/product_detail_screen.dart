@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:meu_app/src/models/product_model.dart';
 import 'package:meu_app/src/services/cart_service.dart';
 import 'package:meu_app/src/screens/cart_screen.dart';
+import 'package:meu_app/src/widgets/custom_app_bar_widget.dart';
+import 'package:meu_app/src/widgets/cart_icon_widget.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final ProductModel produto;
@@ -16,82 +18,69 @@ class ProductDetailScreen extends StatelessWidget {
       backgroundColor: Color.fromARGB(255, 37, 37, 37),
 
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 2, 138, 9),
-
-        title: Text(produto.nome, style: TextStyle(color: Colors.white)),
-
+        backgroundColor: const Color.fromARGB(255, 2, 138, 9),
+        title: Text(produto.nome, style: const TextStyle(color: Colors.white)),
         actions: [
-          ListenableBuilder(
-            listenable: cartService,
-
-            builder: (context, child) {
-              return Stack(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.shopping_cart_outlined,
-                      size: 35,
-                      color: Colors.white,
-                    ),
-
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-
-                        MaterialPageRoute(builder: (_) => CartScreen()),
-                      );
-                    },
-                  ),
-
-                  Positioned(
-                    right: 0,
-                    top: 0,
-
-                    child: Container(
-                      padding: EdgeInsets.all(4),
-
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-
-                      child: Text(
-                        '${cartService.quantidadeItens}',
-
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-
-          SizedBox(width: 15),
+          CartIconWidget(cartService: cartService),
+          const SizedBox(width: 10),
         ],
+      ),
+
+      // Ícone do carrinho separado para não “poluir” o widget global
+      floatingActionButton: ListenableBuilder(
+        listenable: cartService,
+        builder: (context, child) {
+          return Stack(
+            children: [
+              FloatingActionButton(
+                backgroundColor: Color.fromARGB(255, 2, 138, 9),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => CartScreen()),
+                  );
+                },
+                child: Icon(Icons.shopping_cart, color: Colors.white),
+              ),
+
+              // Badge
+              Positioned(
+                right: 0,
+                top: 0,
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Text(
+                    '${cartService.quantidadeItens}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
 
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-
           children: [
             Image.asset(produto.imagem, height: 350, fit: BoxFit.cover),
 
             Padding(
               padding: EdgeInsets.all(20),
-
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-
                 children: [
                   Text(
                     produto.nome,
-
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
@@ -103,7 +92,6 @@ class ProductDetailScreen extends StatelessWidget {
 
                   Text(
                     produto.descricao,
-
                     style: TextStyle(color: Colors.white70, fontSize: 18),
                   ),
 
@@ -111,11 +99,9 @@ class ProductDetailScreen extends StatelessWidget {
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                     children: [
                       Text(
                         'R\$ ${produto.preco}',
-
                         style: TextStyle(
                           color: Colors.greenAccent,
                           fontSize: 32,
@@ -126,7 +112,6 @@ class ProductDetailScreen extends StatelessWidget {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
-
                           padding: EdgeInsets.symmetric(
                             horizontal: 25,
                             vertical: 15,
@@ -145,7 +130,6 @@ class ProductDetailScreen extends StatelessWidget {
 
                         child: Text(
                           'Adicionar',
-
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                       ),

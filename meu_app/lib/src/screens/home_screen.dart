@@ -6,6 +6,7 @@ import 'package:meu_app/src/widgets/subscription_section_widget.dart';
 import 'package:meu_app/src/screens/cart_screen.dart';
 import 'package:meu_app/src/services/cart_service.dart';
 import 'package:meu_app/src/screens/login_screen.dart';
+import 'package:meu_app/src/widgets/cart_icon_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -49,73 +50,24 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Color.fromARGB(255, 37, 37, 37),
 
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 2, 138, 9),
+
+        automaticallyImplyLeading: false, // ❌ remove as 3 barras
+
         leading: IconButton(
-          icon: Icon(Icons.person_outline, size: 40, color: Colors.white),
-
+          icon: const Icon(Icons.person_outline, color: Colors.white, size: 30),
           onPressed: () {
-            Navigator.push(
-              context,
-
-              MaterialPageRoute(builder: (_) => LoginScreen()),
-            );
+            Navigator.pushNamed(context, '/login');
           },
         ),
-        backgroundColor: Color.fromARGB(255, 2, 138, 9),
+
         title: Image.asset('assets/logo_d20.png', height: 40),
+
         centerTitle: true,
 
         actions: [
-          Icon(Icons.person_outline, size: 40, color: Colors.white),
-          SizedBox(width: 10),
-          ListenableBuilder(
-            listenable: cartService,
-
-            builder: (context, child) {
-              return Stack(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.shopping_cart_outlined,
-                      size: 40,
-                      color: Colors.white,
-                    ),
-
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => CartScreen()),
-                      );
-                    },
-                  ),
-
-                  Positioned(
-                    right: 0,
-                    top: 0,
-
-                    child: Container(
-                      padding: EdgeInsets.all(4),
-
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 181, 0, 236),
-                        shape: BoxShape.circle,
-                      ),
-
-                      child: Text(
-                        '${cartService.quantidadeItens}',
-
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-          SizedBox(width: 25),
+          CartIconWidget(cartService: cartService),
+          const SizedBox(width: 10),
         ],
       ),
 
